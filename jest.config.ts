@@ -1,11 +1,13 @@
-/**
- * For a detailed explanation regarding each configuration property, visit:
+/*
+ * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
  */
 
-import type {Config} from 'jest';
-
-const config: Config = {
+export default {
+  transform: {
+    "^.+\.(t|j)sx?$": ["@swc/jest"],
+    
+  },
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -13,9 +15,9 @@ const config: Config = {
   // bail: 0,
 
   // The directory where Jest should store its cached dependency information
-  // cacheDirectory: "C:\\Users\\wilson.alves\\AppData\\Local\\Temp\\jest",
+  // cacheDirectory: "/private/var/folders/h_/n9cr86t52279b8msmjm777z00000gn/T/jest_dx",
 
-  // Automatically clear mock calls, instances, contexts and results before every test
+  // Automatically clear mock calls, instances and results before every test
   clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
@@ -29,7 +31,7 @@ const config: Config = {
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
-  //   "\\\\node_modules\\\\"
+  //   "/node_modules/"
   // ],
 
   // Indicates which provider should be used to instrument code for coverage
@@ -51,11 +53,6 @@ const config: Config = {
 
   // Make calling deprecated APIs throw helpful error messages
   // errorOnDeprecated: false,
-
-  // The default configuration for fake timers
-  // fakeTimers: {
-  //   "enableGlobally": false
-  // },
 
   // Force coverage collection from ignored files using an array of glob patterns
   // forceCoverageMatch: [],
@@ -80,8 +77,6 @@ const config: Config = {
   // An array of file extensions your modules use
   // moduleFileExtensions: [
   //   "js",
-  //   "mjs",
-  //   "cjs",
   //   "jsx",
   //   "ts",
   //   "tsx",
@@ -162,7 +157,7 @@ const config: Config = {
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
-  //   "\\\\node_modules\\\\"
+  //   "/node_modules/"
   // ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
@@ -174,13 +169,19 @@ const config: Config = {
   // This option allows use of a custom test runner
   // testRunner: "jest-circus/runner",
 
+  // This option sets the URL for the jsdom environment. It is reflected in properties such as location.href
+  // testURL: "http://localhost",
+
+  // Setting this value to "fake" allows the use of fake timers for functions such as "setTimeout"
+  // timers: "real",
+
   // A map from regular expressions to paths to transformers
   // transform: undefined,
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
-  //   "\\\\node_modules\\\\",
-  //   "\\.pnp\\.[^\\\\]+$"
+  //   "/node_modules/",
+  //   "\\.pnp\\.[^\\/]+$"
   // ],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
@@ -195,5 +196,3 @@ const config: Config = {
   // Whether to use watchman for file crawling
   // watchman: true,
 };
-
-export default config;
