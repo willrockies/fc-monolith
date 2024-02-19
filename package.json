@@ -21,6 +21,8 @@
   },
   "dependencies": {
     "@types/uuid": "^9.0.8",
+    "sequelize": "^6.37.1",
+    "sequelize-typescript": "^2.1.6",
     "uuid": "^9.0.1"
   }
 }
