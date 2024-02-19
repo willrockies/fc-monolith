@@ -2,11 +2,11 @@ export interface AddProductInputDto {
     id?: string;
     name: string;
     description: string;
-    purchasePrice: number
+    purchasePrice: number;
     stock: number;
-}
-
-export interface AddProductOutputDto {
+  }
+  
+  export interface AddProductOutputDto {
     id: string;
     name: string;
     description: string;
@@ -14,4 +14,4 @@ export interface AddProductOutputDto {
     stock: number;
     createdAt: Date;
     updatedAt: Date;
-}
+  }  
