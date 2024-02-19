@@ -7,7 +7,7 @@ export interface UseCaseProps {
 }
 
 
-export default class ProductAdmFacede implements ProductAdmFacadeInterface {
+export default class ProductAdmFacade implements ProductAdmFacadeInterface {
 private _addUseCase: UseCaseInterface;
 private _checkStockUseCase: UseCaseInterface;
 
