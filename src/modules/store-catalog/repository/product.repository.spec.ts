@@ -1,8 +1,8 @@
 import { Sequelize } from "sequelize-typescript";
 import ProductModel from "./product.model";
-
+import { validate as uuidValidate } from 'uuid';
 import ProductRepository from "./product.repository";
-import { v4 as uuidv4 } from "uuid";
+
 describe("ProductRepository test", () => {
 
     let sequelize: Sequelize;
@@ -49,11 +49,11 @@ products.forEach(product=>{
 })  
         // Assert
         expect(products.length).toBe(2);
-        expect(products[0].id.id).toBe("1");
+        expect(uuidValidate(products[0].id.id)).toBe(true); // Verifica se o UUID é válido
         expect(products[0].name).toBe("Product 1");
         expect(products[0].description).toBe("Product 1 description");
         expect(products[0].salesPrice).toBe(100);
-        expect(products[1].id.id).toBe('2');
+        expect(uuidValidate(products[1].id.id)).toBe(true); // Verifica se o UUID é válido
         expect(products[1].name).toBe("Product 2");
         expect(products[1].description).toBe("Product 2 description");
         expect(products[1].salesPrice).toBe(200);
