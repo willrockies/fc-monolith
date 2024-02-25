@@ -44,9 +44,7 @@ describe("ProductRepository test", () => {
         // Act
         const productRepository = new ProductRepository();
         const products = await productRepository.findAll();
-products.forEach(product=>{
-    console.log(product.id.id)
-})  
+ 
         // Assert
         expect(products.length).toBe(2);
         expect(uuidValidate(products[0].id.id)).toBe(true); // Verifica se o UUID é válido
@@ -57,6 +55,23 @@ products.forEach(product=>{
         expect(products[1].name).toBe("Product 2");
         expect(products[1].description).toBe("Product 2 description");
         expect(products[1].salesPrice).toBe(200);
-    }
-    );
+    });
+
+    
+  it("should find a product", async () => {
+    await ProductModel.create({
+      id: "1",
+      name: "Product 1",
+      description: "Description 1",
+      salesPrice: 100,
+    });
+
+    const productRepository = new ProductRepository();
+    const product = await productRepository.find("1");
+
+    expect(product.id.id).toBe("1");
+    expect(product.name).toBe("Product 1");
+    expect(product.description).toBe("Description 1");
+    expect(product.salesPrice).toBe(100);
+  });
 })
