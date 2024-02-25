@@ -38,7 +38,7 @@ describe("ProductRepository test", () => {
           const productDb = await ProductModel.findOne({
             where: { id: productProps.id.id },
           });
-       console.log("productDb teste",productDb.dataValues.id);
+      
           expect(productProps.id.id).toEqual(productDb.dataValues.id);
           expect(productProps.name).toEqual(productDb.dataValues.name);
           expect(productProps.description).toEqual(productDb.dataValues.description);
