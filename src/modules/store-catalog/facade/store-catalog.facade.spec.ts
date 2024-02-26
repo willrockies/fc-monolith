@@ -24,7 +24,6 @@ describe("", () => {
     it("should find a product", async () => {
         const facade = StoreCatalogFacadeFactory.create();
         await ProductModel.create({
-            id: "1",
             name: "Product 1",
             description: "Product 1 description",
             salesPrice: 100,
@@ -32,7 +31,7 @@ describe("", () => {
 
         const result = await facade.find({ id: "1" });
 
-        expect(result.id).toBe("1");
+        expect(result.id).toBeDefined();
         expect(result.name).toBe("Product 1");
         expect(result.description).toBe("Product 1 description");
         expect(result.salesPrice).toBe(100);

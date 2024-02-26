@@ -5,7 +5,7 @@ export default class Id implements ValueObject {
   private _id: string;
 
   constructor(id?: string) {
-    this._id = id ?? uuidv4();
+    this._id = id || uuidv4();
   }
 
   get id(): string {

@@ -1,4 +1,5 @@
 import { Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import Id from "../../@shared/domain/value-object/id.value-object";
 
 @Table({
     tableName: "products",
