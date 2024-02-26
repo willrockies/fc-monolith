@@ -27,5 +27,5 @@ describe("Add Client Usecase unit test", () => {
         expect(result.name).toEqual(input.name);
         expect(result.email).toEqual(input.email);
         expect(result.address).toEqual(input.address);
-    })
-})
+    });
+});
