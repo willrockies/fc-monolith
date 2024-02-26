@@ -21,9 +21,9 @@ export class ClientModel extends Model {
     address: string;
 
     @Column({allowNull: false})
-    createdAt?: string;
+    createdAt?: Date;
 
     @Column({allowNull: false})
-    updatedAt?: string;
+    updatedAt?: Date;
 
 }
