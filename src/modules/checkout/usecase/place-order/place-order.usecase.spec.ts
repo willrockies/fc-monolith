@@ -22,20 +22,22 @@ describe("PlaceOrderUseCase unit test ", () => {
                 checkStock: jest.fn(({ productId }: { productId: string }) =>
                     Promise.resolve({
                         productId,
-                        stock: productId === "1" ? 0 : 10,
+                        stock: productId === "1" ? 0 : 1,
                     }),
                 ),
             };
 
             //@ts-expect-error - force set clientFacade
-            placeOrderUseCase["_clientFacade"] = mockProductFacade;
+            placeOrderUseCase["_productFacade"] = mockProductFacade;
 
             let input: PlaceOrderInputDto = {
                 clientId: "0",
                 products: [{ productId: "1" }],
             };
 
-            await expect(placeOrderUseCase["validateProducts"](input)).rejects.toThrow(new Error("Product 1 is not available in stock"));
+            await expect(
+                placeOrderUseCase["validateProducts"](input)
+              ).rejects.toThrow(new Error("Product 1 is not available in stock"));
 
 
             input = {
