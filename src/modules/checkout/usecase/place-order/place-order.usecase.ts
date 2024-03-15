@@ -24,11 +24,14 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
                 // mudar o status da minha order para approved
                 // retornar dto
          */
+
+        
         const client = await this._clientFacade.find({ id: input.clientId });
         if (!client) {
             throw new Error("Client not found");
         }
-
+        await this.validateProducts(input);
+        
         return {
             id: "",
             invoiceId: "",
@@ -38,4 +41,16 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
         }
     }
 
+    private async validateProducts(input: PlaceOrderInputDto): Promise<void> {
+        if(input.products.length === 0) {
+            throw new Error("No products selected");
+        }
+
+        // for (const productId of input.products) {
+        //     const product = await this._clientFacade.findProduct({ id: productId });
+        //     if (!product) {
+        //         throw new Error("Product not found");
+        //     }
+        // }
+    }
 }
