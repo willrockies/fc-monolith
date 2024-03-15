@@ -12,7 +12,7 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
     async execute(input: PlaceOrderInputDto): Promise<PlaceOrderOutputDto> {
         /* 
                 // buscar o cliente. Caso não encontre -> client not found
-                // validar produto.
+                // validar produto. //função a parte
                 // recuperar os dados do produto
         
                 // criar o objeto do client
