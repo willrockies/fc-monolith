@@ -22,10 +22,10 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
   constructor(
     clientFacade: ClientAdmFacadeInterface,
     productFacade: ProductAdmFacadeInterface,
-     catalogFacade: StoreCatalogFacadeInterface,
-     repository: CheckoutGateway,
-     invoiceFacade: InvoiceFacadeInterface,
-     paymentFacade: PaymentFacadeInterface) {
+    catalogFacade: StoreCatalogFacadeInterface,
+    repository: CheckoutGateway,
+    invoiceFacade: InvoiceFacadeInterface,
+    paymentFacade: PaymentFacadeInterface) {
     this._clientFacade = clientFacade;
     this._productFacade = productFacade;
     this._catalogFacade = catalogFacade;
@@ -65,7 +65,7 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
       id: new Id(client.id),
       name: client.name,
       email: client.email,
-      address: client.address
+      address: client.street
     });
 
     const order = new Order({
@@ -73,12 +73,47 @@ export default class PlaceOrderUseCase implements UseCaseInterface {
       products,
     });
 
+    const payment = await this._paymentFacade.process({
+      orderId: order.id.id,
+      amount: order.total
+    });
+
+    const invoice =
+      payment.status === "approved" ? await this._invoiceFacade.create({
+          name: client.name,
+          document: client.document,
+          street: client.street,
+          complement: client.complement,
+          number: client.number,
+          city: client.city,
+          state: client.state,
+          zipCode: client.zipCode,
+          items: products.map((p) => {
+            return {
+              id: p.id.id,
+              name: p.name,
+              price: p.salesPrice,
+            };
+          }),
+        })
+        : null;
+
+    payment.status === "approved" && order.approved();
+
+    await this._repository.addOrder(order);
+
+
     return {
-      id: "",
-      invoiceId: "",
-      status: "",
-      total: 0,
-      products: []
+      id: order.id.id,
+      invoiceId: payment.status === "approved" ? invoice.id : null,
+
+      status: order.status,
+      total: order.total,
+      products: order.products.map((p) => {
+        return {
+          productId: p.id.id,
+        };
+      }),
     }
   }
 
