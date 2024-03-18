@@ -39,9 +39,6 @@ export class ClientModel extends Model {
     zipCode: string;
 
     @Column({ allowNull: false })
-    address: string;
-
-    @Column({ allowNull: false })
     createdAt?: Date;
 
     @Column({ allowNull: false })
