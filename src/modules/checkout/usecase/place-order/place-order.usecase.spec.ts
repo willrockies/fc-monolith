@@ -2,6 +2,7 @@ import { string } from 'yup';
 import { PlaceOrderInputDto } from './place-order.dto';
 import PlaceOrderUseCase from "./place-order.usecase";
 
+const mockDate = new Date(2000, 1, 1);
 describe("PlaceOrderUseCase unit test ", () => {
 
     describe("validate products methods ", () => {
@@ -37,7 +38,7 @@ describe("PlaceOrderUseCase unit test ", () => {
 
             await expect(
                 placeOrderUseCase["validateProducts"](input)
-              ).rejects.toThrow(new Error("Product 1 is not available in stock"));
+            ).rejects.toThrow(new Error("Product 1 is not available in stock"));
 
 
             input = {
@@ -48,7 +49,7 @@ describe("PlaceOrderUseCase unit test ", () => {
             await expect(placeOrderUseCase["validateProducts"](input)).rejects.toThrow(new Error("Product 1 is not available in stock"));
             expect(mockProductFacade.checkStock).toHaveBeenCalledTimes(3);
 
-            
+
             input = {
                 clientId: "0",
                 products: [{ productId: "0" }, { productId: "1" }, { productId: "2" }],
@@ -61,6 +62,28 @@ describe("PlaceOrderUseCase unit test ", () => {
 
     });
 
+    describe("getProduct method", () => {
+        beforeAll(() => {
+            jest.useFakeTimers("modern");
+            jest.setSystemTime(mockDate);
+        });
+
+        afterAll(() => {
+            jest.useRealTimers();
+        });
+
+        //@ts-expect-error - no params in constructor
+        const placeOrderUseCase = new PlaceOrderUseCase();
+
+        it("should throw an error when client not found", async () => {
+
+            const mockCatalogFacade = {
+                find: jest.fn().mockResolvedValue(null),
+            }
+            //@ts-expect-error - force set catalogFacade
+            await expect(placeOrderUseCase["getProduct"]("0")).rejects.toThrow(new Error("Product not found"));
+        });
+    })
 
     describe("Execute method", () => {
 
