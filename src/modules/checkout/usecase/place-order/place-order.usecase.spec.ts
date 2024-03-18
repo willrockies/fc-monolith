@@ -80,7 +80,10 @@ describe("PlaceOrderUseCase unit test ", () => {
             const mockCatalogFacade = {
                 find: jest.fn().mockResolvedValue(null),
             }
+
             //@ts-expect-error - force set catalogFacade
+            placeOrderUseCase["_catalogFacade"] = mockCatalogFacade;
+
             await expect(placeOrderUseCase["getProduct"]("0")).rejects.toThrow(new Error("Product not found"));
         });
     })
